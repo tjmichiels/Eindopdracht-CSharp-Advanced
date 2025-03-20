@@ -10,7 +10,7 @@ public class NotificationService
     public void Subscribe(IObserver observer) => _observers.Add(observer);
     public void Unsubscribe(IObserver observer) => _observers.Remove(observer);
 
-    public async Task NotifyAllAsyns(Reservation reservation)
+    public async Task NotifyAllAsync(Reservation reservation)
     {
         foreach (IObserver observer in _observers)
         {
