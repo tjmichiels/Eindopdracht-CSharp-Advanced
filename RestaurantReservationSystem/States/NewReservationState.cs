@@ -1,0 +1,14 @@
+﻿using RestaurantReservationSystem.Enums;
+using RestaurantReservationSystem.Models;
+
+namespace RestaurantReservationSystem.States;
+
+public class NewReservationState : ReservationState
+{
+    public override void Handle(Reservation reservation)
+    {
+        reservation.ReservationState = this;
+    }
+    
+    public override string Name => "New Reservation";
+}

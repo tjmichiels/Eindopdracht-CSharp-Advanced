@@ -1,5 +1,6 @@
 ﻿using RestaurantReservationSystem.Enums;
 using RestaurantReservationSystem.Models;
+using RestaurantReservationSystem.States;
 
 namespace RestaurantReservationSystem.Commands;
 
@@ -14,6 +15,6 @@ public class ConfirmReservationCommand : IReservationCommand
 
     public void Execute()
     {
-        _reservation.ReservationState = ReservationState.Confirmed;
+        _reservation.ReservationState = new ConfirmedReservationState();
     }
 }

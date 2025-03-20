@@ -1,5 +1,6 @@
 ﻿using RestaurantReservationSystem.Enums;
 using RestaurantReservationSystem.Models;
+using RestaurantReservationSystem.States;
 
 namespace RestaurantReservationSystem.Builders;
 
@@ -33,7 +34,7 @@ public class ReservationBuilder
 
     public Reservation Build()
     {
-        // _reservation.ReservationState = ReservationState.Confirmed;
+        _reservation.ReservationState = new NewReservationState();
         return _reservation;
     }
     
