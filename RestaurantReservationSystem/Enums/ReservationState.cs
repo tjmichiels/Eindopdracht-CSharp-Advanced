@@ -1,6 +1,6 @@
 ﻿namespace RestaurantReservationSystem.Enums;
 
-public class ReservationState
+public enum ReservationState
 {
     
 }
