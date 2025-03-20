@@ -8,6 +8,7 @@ public sealed class ReservationManager
     private static readonly Lazy<ReservationManager> instance = 
         new Lazy<ReservationManager>(() => new ReservationManager());
 
+    // Concurrent Collections
     private readonly ConcurrentDictionary<Guid, Reservation> _reservations 
         = new ConcurrentDictionary<Guid, Reservation>();
 

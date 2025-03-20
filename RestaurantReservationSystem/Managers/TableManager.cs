@@ -8,6 +8,7 @@ public class TableManager
     private static readonly Lazy<TableManager> instance =
         new Lazy<TableManager>(() => new TableManager());
 
+    // Concurrent Collections
     private readonly ConcurrentDictionary<int, Table> _tables = new ConcurrentDictionary<int, Table>();
 
     public static TableManager Instance => instance.Value;
