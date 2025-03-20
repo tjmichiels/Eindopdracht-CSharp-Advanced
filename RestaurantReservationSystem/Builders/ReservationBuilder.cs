@@ -33,7 +33,7 @@ public class ReservationBuilder
 
     public Reservation Build()
     {
-        _reservation.ReservationState = ReservationState.Confirmed;
+        // _reservation.ReservationState = ReservationState.Confirmed;
         return _reservation;
     }
     
