@@ -10,7 +10,7 @@ public class ReservationBuilder
 
     public ReservationBuilder SetGuestName(string name)
     {
-        _reservation.Name = name;
+        _reservation.GuestName = name;
         return this;
     }
 

@@ -24,6 +24,8 @@ public class ReservationFacade
         // Reserveer tafel
         table.IsAvailable = false;
 
+        reservation.ReservedTable = table;
+
         // Voeg reservering toe (Singleton Pattern)
         ReservationManager.Instance.AddReservation(reservation);
 

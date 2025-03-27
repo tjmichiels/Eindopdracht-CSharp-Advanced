@@ -22,15 +22,17 @@ public class RestaurantBranch : IRestaurantComponent
 
         if (components.Count == 0)
         {
-            Console.WriteLine("No components");
+            Console.WriteLine(" No components");
             return;
         }
 
-        Console.WriteLine("Components:");
+        Console.WriteLine(" Components:");
         foreach (var restaurantComponent in components)
         {
+            Console.Write("  ");
             restaurantComponent.DisplayInfo();
         }
+
         Console.WriteLine();
     }
 }

@@ -17,10 +17,23 @@ class Program
     {
         // Composite Pattern
         // restaurantstructuur opzetten
+        var hoofdzaal = new RestaurantRoom("Hoofdzaal");
+        var terras = new RestaurantRoom("Terras");
+
         var mainBranch = new RestaurantBranch("Almere Centrum");
-        mainBranch.AddComponent(new RestaurantRoom("Hoofdzaal"));
-        mainBranch.AddComponent(new RestaurantRoom("Terras"));
-        
+        mainBranch.AddComponent(hoofdzaal);
+        mainBranch.AddComponent(terras);
+
+        var tableManager = TableManager.Instance; // Singleton Pattern
+
+
+        tableManager.AddTable(new Table { Id = 1, Seats = 6, Room = hoofdzaal });
+        tableManager.AddTable(new Table { Id = 2, Seats = 4, Room = terras });
+
+        // Voeg tafels toe aan ruimtes
+        hoofdzaal.AddTable(tableManager.GetTableById(1));
+        terras.AddTable(tableManager.GetTableById(2));
+
         mainBranch.DisplayInfo();
 
         // Builder Pattern
@@ -35,23 +48,25 @@ class Program
         // Decorator Pattern
         // eventuele speciale verzoeken toevoegen
         reservation = new SpecialRequestDecorator(reservation, "1 persoon gluten- en lactosevrij");
-        
+
 
         // Strategy Pattern
         // reserveringstype instellen
-        var reservationTypeStrategy = new OnlineReservationStrategy();
+        var onlineReservation = new OnlineReservationStrategy();
 
         // Facade Pattern
         // reservering aanmaken via facade
         var reservationFacade = new ReservationFacade(); // deze roept de Singletons aan (Singleton Pattern)
-        bool success = await reservationFacade.CreateReservationAsync(reservation, reservationTypeStrategy);
+        bool success = await reservationFacade.CreateReservationAsync(reservation, onlineReservation);
 
         if (!success)
         {
             Console.WriteLine("Reservering mislukt: Geen beschikbare tafel.");
             return;
-           
         }
+        
+        // Bij succes wordt een notificatie verzonden in ReservationFacade.cs (Observer Pattern)
+
         Console.WriteLine("Reservering succesvol aangemaakt.");
 
         // Command Pattern
@@ -62,11 +77,6 @@ class Program
         // State Pattern
         Console.WriteLine($"Status van de reservering: {reservation.ReservationState.Name}");
 
-        // Observer Pattern
-        // notificaties verzenden
-        var notificationService = new NotificationService();
-        notificationService.Subscribe(new EmailNotificationObserver());
-        await notificationService.NotifyAllAsync(reservation);
-        Console.WriteLine("Notificatie verzonden.");
+ 
     }
 }
