@@ -70,9 +70,7 @@ class Program
             return;
         }
 
-        // Bij succes wordt een notificatie verzonden in ReservationFacade.cs (Observer Pattern)
         
-        Thread.Sleep(1000);
 
         Console.WriteLine("Reservering succesvol aangemaakt.\n");
         
@@ -81,7 +79,7 @@ class Program
         // Command Pattern
         // reservering bevestigen
         var confirmCommand = new ConfirmReservationCommand(reservation);
-        confirmCommand.Execute();
+        confirmCommand.Execute(); // Bij het uitvoeren van de confirmCommand wordt een notificatie verzonden (Observer Pattern)
 
         Thread.Sleep(1000);
         
@@ -90,7 +88,7 @@ class Program
         
         Thread.Sleep(1000);
         
-        // Tafel 1 staat nu niet meer beschikbaar
+        // Tafel 1 staat nu niet meer op beschikbaar
         mainBranch.DisplayInfo();
     }
 }

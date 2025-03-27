@@ -29,9 +29,9 @@ public class ReservationFacade
         // Voeg reservering toe (Singleton Pattern)
         ReservationManager.Instance.AddReservation(reservation);
 
-        // Notificeer klant (Observer Pattern)
-        _notificationService.Subscribe(new EmailNotificationObserver());
-        await _notificationService.NotifyAllAsync(reservation);
+        // Notificeer klant (Verplaatst naar ConfirmReservationCommand)
+        // _notificationService.Subscribe(new EmailNotificationObserver());
+        // await _notificationService.NotifyAllAsync(reservation);
 
         return true;
     }
