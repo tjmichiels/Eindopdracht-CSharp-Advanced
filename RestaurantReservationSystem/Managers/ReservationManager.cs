@@ -5,16 +5,18 @@ namespace RestaurantReservationSystem.Managers;
 
 public sealed class ReservationManager
 {
-    private static readonly Lazy<ReservationManager> instance = 
+    private static readonly Lazy<ReservationManager> instance =
         new Lazy<ReservationManager>(() => new ReservationManager());
 
     // Concurrent Collections
-    private readonly ConcurrentDictionary<Guid, Reservation> _reservations 
+    private readonly ConcurrentDictionary<Guid, Reservation> _reservations
         = new ConcurrentDictionary<Guid, Reservation>();
 
     public static ReservationManager Instance => instance.Value;
 
-    private ReservationManager() { }
+    private ReservationManager()
+    {
+    }
 
     public void AddReservation(Reservation reservation) => _reservations.TryAdd(reservation.Id, reservation);
     public Reservation GetReservation(Guid id) => _reservations[id];

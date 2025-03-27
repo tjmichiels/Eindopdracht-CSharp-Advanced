@@ -9,6 +9,6 @@ public class ConfirmedReservationState : ReservationState
     {
         reservation.ReservationState = this;
     }
-    
+
     public override string Name => "Confirmed";
 }

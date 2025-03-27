@@ -10,6 +10,6 @@ public class ReservationDecorator : Reservation
     {
         Reservation = reservation;
     }
-    
+
     public override string Details => Reservation.Details;
 }

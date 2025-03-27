@@ -9,6 +9,6 @@ public class NewReservationState : ReservationState
     {
         reservation.ReservationState = this;
     }
-    
+
     public override string Name => "New Reservation";
 }

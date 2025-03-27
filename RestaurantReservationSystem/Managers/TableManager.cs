@@ -29,7 +29,6 @@ public class TableManager
 
     public Table GetAvailableTable(int guests)
     {
-        return _tables.Values.FirstOrDefault(t => t.IsAvailable && t.Seats >= guests) ?? throw new InvalidOperationException();
+        return _tables.Values.FirstOrDefault(t => t.IsAvailable && t.Seats >= guests);
     }
-
 }

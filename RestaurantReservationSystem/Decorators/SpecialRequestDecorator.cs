@@ -10,6 +10,6 @@ public class SpecialRequestDecorator : ReservationDecorator
     {
         _specialRequest = specialRequest;
     }
-    
+
     public override string Details => $"{Reservation.Details}\nSPECIAL REQUEST: {_specialRequest}";
 }

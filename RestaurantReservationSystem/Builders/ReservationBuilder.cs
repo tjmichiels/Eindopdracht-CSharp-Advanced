@@ -37,5 +37,4 @@ public class ReservationBuilder
         _reservation.ReservationState = new NewReservationState();
         return _reservation;
     }
-    
 }
