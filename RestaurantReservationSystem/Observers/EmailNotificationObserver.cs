@@ -9,8 +9,7 @@ public class EmailNotificationObserver : IObserver
         string roomName = reservation.ReservedTable.Room.Name;
         int tableId = reservation.ReservedTable.Id;
 
-        string message = $"Beste {reservation.GuestName}, uw reservering is bevestigd. " +
-                         $"Uw zit aan tafel {tableId} in de ruimte '{roomName}'.";
+        string message = $"Beste {reservation.GuestName}, uw reservering is bevestigd:\n\n{reservation}\n";
 
         // await EmailService.SendEmailAsync(reservation.CustomerName, message);
         await Console.Out.WriteLineAsync(message);

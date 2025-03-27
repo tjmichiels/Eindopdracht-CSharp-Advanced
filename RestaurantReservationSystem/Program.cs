@@ -36,23 +36,28 @@ class Program
 
         mainBranch.DisplayInfo();
 
+        Thread.Sleep(1000);
+        
         // Builder Pattern
         // reservering aanmaken
         var builder = new ReservationBuilder();
         var reservation = builder
             .SetGuestName("Anna de Vries")
-            .SetDateTime(DateTime.Now.AddDays(2))
+            .SetDateTime(new DateTime(2025, 11, 28, 23, 59, 0))
             .SetNumberOfGuests(4)
+            .SetDetails("Komen misschien een kwartier later")
             .Build();
 
         // Decorator Pattern
         // eventuele speciale verzoeken toevoegen
         reservation = new SpecialRequestDecorator(reservation, "1 persoon gluten- en lactosevrij");
 
-
+        
         // Strategy Pattern
         // reserveringstype instellen
         var onlineReservation = new OnlineReservationStrategy();
+        
+        Thread.Sleep(1000);
 
         // Facade Pattern
         // reservering aanmaken via facade
@@ -64,19 +69,28 @@ class Program
             Console.WriteLine("Reservering mislukt: Geen beschikbare tafel.");
             return;
         }
-        
-        // Bij succes wordt een notificatie verzonden in ReservationFacade.cs (Observer Pattern)
 
-        Console.WriteLine("Reservering succesvol aangemaakt.");
+        // Bij succes wordt een notificatie verzonden in ReservationFacade.cs (Observer Pattern)
+        
+        Thread.Sleep(1000);
+
+        Console.WriteLine("Reservering succesvol aangemaakt.\n");
+        
+        Thread.Sleep(1000);
 
         // Command Pattern
         // reservering bevestigen
         var confirmCommand = new ConfirmReservationCommand(reservation);
         confirmCommand.Execute();
 
+        Thread.Sleep(1000);
+        
         // State Pattern
-        Console.WriteLine($"Status van de reservering: {reservation.ReservationState.Name}");
-
- 
+        Console.WriteLine($"Status van de reservering: {reservation.ReservationState.Name}\n");
+        
+        Thread.Sleep(1000);
+        
+        // Tafel 1 staat nu niet meer beschikbaar
+        mainBranch.DisplayInfo();
     }
 }
