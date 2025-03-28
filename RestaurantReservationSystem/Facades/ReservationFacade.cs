@@ -1,4 +1,5 @@
-﻿using RestaurantReservationSystem.Managers;
+﻿using RestaurantReservationSystem.Concurrency;
+using RestaurantReservationSystem.Managers;
 using RestaurantReservationSystem.Models;
 using RestaurantReservationSystem.Observers;
 using RestaurantReservationSystem.Services;
@@ -8,31 +9,29 @@ namespace RestaurantReservationSystem.Facades;
 
 public class ReservationFacade
 {
-    private readonly NotificationService _notificationService = new NotificationService();
+    // private readonly NotificationService _notificationService = new NotificationService();
 
-    public async Task<bool> CreateReservationAsync(
+    public Task<bool> CreateReservationAsync(
         Reservation reservation,
         IReservationTypeStrategy reservationTypeStrategy)
     {
-        // Reserveringstype (Strategy Pattern)
-        reservationTypeStrategy.SetReservationType(reservation);
+        return FuturesAndPromises.RunAsync(() =>
+        {
+            // Reserveringstype (Strategy Pattern)
+            reservationTypeStrategy.SetReservationType(reservation);
 
-        // Zoek een beschikbare tafel (Singleton Pattern)
-        var table = TableManager.Instance.GetAvailableTable(reservation.NumberOfGuests);
-        if (table == null) return false;
+            // Zoek een beschikbare tafel (Singleton Pattern)
+            var table = TableManager.Instance.GetAvailableTable(reservation.NumberOfGuests);
+            if (table == null) return false;
 
-        // Reserveer tafel
-        table.IsAvailable = false;
+            // Reserveer tafel
+            table.IsAvailable = false;
+            reservation.ReservedTable = table;
 
-        reservation.ReservedTable = table;
+            // Voeg reservering toe (Singleton Pattern)
+            ReservationManager.Instance.AddReservation(reservation);
 
-        // Voeg reservering toe (Singleton Pattern)
-        ReservationManager.Instance.AddReservation(reservation);
-
-        // Notificeer klant (Verplaatst naar ConfirmReservationCommand)
-        // _notificationService.Subscribe(new EmailNotificationObserver());
-        // await _notificationService.NotifyAllAsync(reservation);
-
-        return true;
+            return true;
+        });
     }
 }
