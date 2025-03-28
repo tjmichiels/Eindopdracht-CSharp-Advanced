@@ -1,4 +1,5 @@
-﻿using RestaurantReservationSystem.Enums;
+﻿using RestaurantReservationSystem.Concurrency;
+using RestaurantReservationSystem.Enums;
 using RestaurantReservationSystem.Models;
 using RestaurantReservationSystem.Observers;
 using RestaurantReservationSystem.Services;
@@ -18,11 +19,11 @@ public class ConfirmReservationCommand : IReservationCommand
         _notificationService.Subscribe(new EmailNotificationObserver());
     }
 
-    public async void Execute()
+    public void Execute()
     {
         _reservation.ReservationState = new ConfirmedReservationState();
         
-        // notificeer de klant
-        await _notificationService.NotifyAllAsync(_reservation);
+        // Notificeer de klant
+        ThreadPoolExecutor.QueueTask(async () => await _notificationService.NotifyAllAsync(_reservation)); // Thread Pool Pattern
     }
 }
