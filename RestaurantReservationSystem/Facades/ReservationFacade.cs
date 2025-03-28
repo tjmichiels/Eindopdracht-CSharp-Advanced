@@ -9,13 +9,11 @@ namespace RestaurantReservationSystem.Facades;
 
 public class ReservationFacade
 {
-    // private readonly NotificationService _notificationService = new NotificationService();
-
     public Task<bool> CreateReservationAsync(
         Reservation reservation,
         IReservationTypeStrategy reservationTypeStrategy)
     {
-        return FuturesAndPromises.RunAsync(() =>
+        return FuturesAndPromises.RunAsync(() => // Futures and Promises
         {
             // Reserveringstype (Strategy Pattern)
             reservationTypeStrategy.SetReservationType(reservation);
